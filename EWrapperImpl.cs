@@ -13,7 +13,11 @@ namespace IBTradingPlatform
     public class EWrapperImpl : EWrapper 
     {
     //! [ewrapperimpl]
+        
         private int nextOrderId;
+        public Form1 myform;
+
+
         //! [socket_declare]
         EClientSocket clientSocket;
         public readonly EReaderSignal Signal;
@@ -81,13 +85,19 @@ namespace IBTradingPlatform
         {
             Console.WriteLine("Tick Price. Ticker Id:" + tickerId + ", Field: " + field + ", Price: " + Util.DoubleMaxString(price) + ", CanAutoExecute: " + attribs.CanAutoExecute + 
                 ", PastLimit: " + attribs.PastLimit + ", PreOpen: " + attribs.PreOpen);
+            string strData = "Tick Price. Ticker Id:" + tickerId + ", Field: " + field + ", Price: " + Util.DoubleMaxString(price) +
+                             ", CanAutoExecute: " + attribs.CanAutoExecute;
+            Console.WriteLine(strData);
+            myform.AddListBoxItem(strData);
         }
         //! [tickprice]
         
         //! [ticksize]
         public virtual void tickSize(int tickerId, int field, decimal size)
         {
-            Console.WriteLine("Tick Size. Ticker Id:" + tickerId + ", Field: " + field + ", Size: " + Util.DecimalMaxString(size));
+            string strData = "Tick Size. Ticker Id:" + tickerId + ", Field: " + field + ", Size: " + Util.DecimalMaxString(size);
+            Console.WriteLine(strData);
+            myform.AddListBoxItem(strData);
         }
         //! [ticksize]
         
