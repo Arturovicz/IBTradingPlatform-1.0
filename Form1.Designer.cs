@@ -35,7 +35,7 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(81, 41);
+            this.btnConnect.Location = new System.Drawing.Point(12, 12);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(75, 23);
             this.btnConnect.TabIndex = 0;
@@ -50,7 +50,7 @@
             "MSFT",
             "AAPL",
             "TSLA"});
-            this.cbSymbol.Location = new System.Drawing.Point(72, 110);
+            this.cbSymbol.Location = new System.Drawing.Point(12, 41);
             this.cbSymbol.Name = "cbSymbol";
             this.cbSymbol.Size = new System.Drawing.Size(121, 21);
             this.cbSymbol.TabIndex = 1;
@@ -60,9 +60,9 @@
             // lbData
             // 
             this.lbData.FormattingEnabled = true;
-            this.lbData.Location = new System.Drawing.Point(248, 181);
+            this.lbData.Location = new System.Drawing.Point(12, 68);
             this.lbData.Name = "lbData";
-            this.lbData.Size = new System.Drawing.Size(120, 95);
+            this.lbData.Size = new System.Drawing.Size(500, 95);
             this.lbData.TabIndex = 2;
             this.lbData.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 

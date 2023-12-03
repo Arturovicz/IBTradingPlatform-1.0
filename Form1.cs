@@ -77,6 +77,27 @@ namespace IBTradingPlatform
 
             ibClient.myform = (Form1)Application.OpenForms[0];
 
+            getData();
+
+        }
+
+        private void getData()
+        {
+            ibClient.ClientSocket.cancelMktData(1);
+
+            IBApi.Contract contract = new IBApi.Contract();
+            List<IBApi.TagValue> mktDataOptions = new List<IBApi.TagValue>();
+
+            contract.Symbol = cbSymbol.Text;
+            contract.SecType = "STK";           // STK stands for Stock
+            contract.Exchange = "SMART";        // As General Exchange
+            contract.PrimaryExch = "ISLAND";    // Either ISLAND or NYSE
+            contract.Currency = "USD";          // May be changed
+
+            ibClient.ClientSocket.reqMarketDataType(3);
+            ibClient.ClientSocket.reqMktData(1, contract, "", false, false, mktDataOptions);
+
+
         }
     }
 }

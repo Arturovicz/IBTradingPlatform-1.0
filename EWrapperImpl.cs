@@ -83,9 +83,8 @@ namespace IBTradingPlatform
         //! [tickprice]
         public virtual void tickPrice(int tickerId, int field, double price, TickAttrib attribs) 
         {
-            Console.WriteLine("Tick Price. Ticker Id:" + tickerId + ", Field: " + field + ", Price: " + Util.DoubleMaxString(price) + ", CanAutoExecute: " + attribs.CanAutoExecute + 
-                ", PastLimit: " + attribs.PastLimit + ", PreOpen: " + attribs.PreOpen);
-            string strData = "Tick Price. Ticker Id:" + tickerId + ", Field: " + field + ", Price: " + Util.DoubleMaxString(price) +
+            //Console.WriteLine("Tick Price. Ticker Id:" + tickerId + ", Field: " + field + ", Price: " + Util.DoubleMaxString(price) + ", CanAutoExecute: " + attribs.CanAutoExecute + ", PastLimit: " + attribs.PastLimit + ", PreOpen: " + attribs.PreOpen);
+            string strData = "Tick Price: Ticker Id:" + tickerId + ", Field: " + field + ", Price: " + Util.DoubleMaxString(price) +
                              ", CanAutoExecute: " + attribs.CanAutoExecute;
             Console.WriteLine(strData);
             myform.AddListBoxItem(strData);
@@ -95,7 +94,7 @@ namespace IBTradingPlatform
         //! [ticksize]
         public virtual void tickSize(int tickerId, int field, decimal size)
         {
-            string strData = "Tick Size. Ticker Id:" + tickerId + ", Field: " + field + ", Size: " + Util.DecimalMaxString(size);
+            string strData = "Tick Size: Ticker Id:" + tickerId + ", Field: " + field + ", Size: " + Util.DecimalMaxString(size);
             Console.WriteLine(strData);
             myform.AddListBoxItem(strData);
         }
