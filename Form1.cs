@@ -17,6 +17,7 @@ namespace IBTradingPlatform
     {
 
         delegate void SetTextCallback(string text);
+        delegate void SetTextCallbackTickPrice(string _tickPrice);
 
         IBTradingPlatform.EWrapperImpl ibClient;
 
@@ -39,20 +40,44 @@ namespace IBTradingPlatform
             ibClient = new IBTradingPlatform.EWrapperImpl();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e){}
+        
+        private void lbData_SelectedIndexChanged(object sender, EventArgs e){}
+
+
+        private void cbSymbol_SelectedIndexChanged(object sender, EventArgs e) 
         {
-            //throw new NotImplementedException();
+            getData();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbSymbol_KeyPress(object sender, KeyPressEventArgs e) 
         {
-            //throw new NotImplementedException();
+            if (char.IsLower(e.KeyChar))
+            {
+                e.KeyChar = char.ToUpper(e.KeyChar);
+            }
+        }
+        
+        private void cbSymbol_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                cbSymbol.SelectionStart = 0;
+                cbSymbol.SelectionLength = cbSymbol.Text.Length;
+                e.SuppressKeyPress = true;
+
+                string name = cbSymbol.Text;
+
+                if (!cbSymbol.Items.Contains(name)){cbSymbol.Items.Add(name);}
+                cbSymbol.SelectAll();
+                getData();
+
+            }
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-        }
+
+
+
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
@@ -94,15 +119,42 @@ namespace IBTradingPlatform
             contract.PrimaryExch = "ISLAND";    // Either ISLAND or NYSE
             contract.Currency = "USD";          // May be changed
 
-            ibClient.ClientSocket.reqMarketDataType(3);
+            ibClient.ClientSocket.reqMarketDataType(1);    //Delayed data = 3, live data = 1
             ibClient.ClientSocket.reqMktData(1, contract, "", false, false, mktDataOptions);
 
 
         }
 
-        private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        public void AddTextBoxItemTickPrice(string _tickPrice)
         {
+            if (this.tbLast.InvokeRequired)
+            {
+                SetTextCallbackTickPrice d = new SetTextCallbackTickPrice(AddTextBoxItemTickPrice);
+                try
+                {
+                    this.Invoke(d, new object[] { _tickPrice });
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("This comes from AddTextBoxItemTickPrice, Form1.cs", e.ToString());
+                }
+            }
+            else
+            {
+                string[] tickerPrice = new string[] { _tickPrice };
+                tickerPrice = _tickPrice.Split(',');
 
+                if (Convert.ToInt32(tickerPrice[0]) == 1)
+                {
+                    if (Convert.ToInt32(tickerPrice[1]) == 4){this.tbLast.Text = tickerPrice[2];}        // Delayed Last Quote 68
+                    else if (Convert.ToInt32(tickerPrice[1]) == 2) { this.tbAsk.Text = tickerPrice[2]; } // Delayed Ask Quote 67
+                    else if (Convert.ToInt32(tickerPrice[1]) == 1) { this.tbAsk.Text = tickerPrice[2]; } // Delayed Ask Quote 66 
+
+                }
+                        
+            }
         }
+
+        
     }
 }

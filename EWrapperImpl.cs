@@ -87,7 +87,12 @@ namespace IBTradingPlatform
             string strData = "Tick Price: Ticker Id:" + tickerId + ", Field: " + field + ", Price: " + Util.DoubleMaxString(price) +
                              ", CanAutoExecute: " + attribs.CanAutoExecute;
             Console.WriteLine(strData);
+            
+            string _tickPrice = tickerId + "," + field + "," + price + "," + attribs.CanAutoExecute;
+
+            myform.AddListBoxItem(_tickPrice);
             myform.AddListBoxItem(strData);
+            
         }
         //! [tickprice]
         

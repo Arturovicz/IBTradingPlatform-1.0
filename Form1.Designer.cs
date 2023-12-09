@@ -78,7 +78,9 @@
             this.cbSymbol.Size = new System.Drawing.Size(121, 21);
             this.cbSymbol.TabIndex = 1;
             this.cbSymbol.Text = "MSFT";
-            this.cbSymbol.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.cbSymbol.SelectedIndexChanged += new System.EventHandler(this.cbSymbol_SelectedIndexChanged);
+            this.cbSymbol.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbSymbol_KeyDown);
+            this.cbSymbol.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbSymbol_KeyPress);
             // 
             // lbData
             // 
@@ -87,7 +89,6 @@
             this.lbData.Name = "lbData";
             this.lbData.Size = new System.Drawing.Size(418, 108);
             this.lbData.TabIndex = 2;
-            this.lbData.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // label3
             // 
