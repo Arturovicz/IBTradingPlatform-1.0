@@ -109,6 +109,12 @@ namespace IBTradingPlatform
         public virtual void tickString(int tickerId, int tickType, string value)
         {
             Console.WriteLine("Tick string. Ticker Id:" + tickerId + ", Type: " + tickType + ", Value: " + value);
+            if (tickType == 48) // used for time and sales (RTVolume)
+            {
+                string _tickString = value;
+                myform.AddListViewItemTickString(_tickString);
+            }
+
         }
         //! [tickstring]
 

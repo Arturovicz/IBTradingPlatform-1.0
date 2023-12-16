@@ -21,6 +21,7 @@ namespace IBTradingPlatform
 
         delegate void SetTextCallback(string text);
         delegate void SetTextCallbackTickPrice(string _tickPrice);
+        delegate void SetTextCallbackTickString(string _tickString);
 
         IBTradingPlatform.EWrapperImpl ibClient;
 
@@ -79,6 +80,95 @@ namespace IBTradingPlatform
         }
 
 
+        public void AddListViewItemTickString(string _tickString)
+        {
+            if (this.listViewTns.InvokeRequired)
+            {
+                try
+                {
+                    SetTextCallbackTickString d = new SetTextCallbackTickString(AddListViewItemTickString);
+                    this.Invoke(d, new object[] { _tickString });
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Poxuy");
+                }
+            }
+            else
+            {
+                try
+                {
+                    
+                    double theBid = Convert.ToDouble(tbBid.Text);
+                    double theAsk = Convert.ToDouble(tbAsk.Text);
+
+
+                    string[] listTimeSales = _tickString.Split(';');
+                    double last_price = Convert.ToDouble(listTimeSales[0]);
+                    int trade_size = Convert.ToInt32(listTimeSales[1]);
+                    double trade_time = Convert.ToDouble(listTimeSales[2]);
+                    int share_size = trade_size * 100;
+                    string strShareSize = share_size.ToString("###,####,##0");
+
+                    DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                    epoch = epoch.AddMilliseconds(trade_time);
+                    epoch = epoch.AddHours(-5);   //Daylight saving time use -4 Summer otherwise use -5 Winter
+
+                    string strSaleTime = epoch.ToString("h:mm:ss:ff");
+
+                    double myMeanPrice = ((theAsk - theBid) / 2);
+                    double myMean = (theBid + myMeanPrice);
+
+                    ListViewItem lx = new ListViewItem();
+
+                    // string dt = String.Format("{0:hh:mm:ss}", dnt);
+
+                    
+                    if (last_price == theAsk)
+                    {
+                        lx.ForeColor = Color.Green; 
+                        lx.Text = (listTimeSales[0]);
+                        lx.SubItems.Add(strShareSize);
+                        lx.SubItems.Add(strSaleTime); 
+                        listViewTns.Items.Insert(0, lx); // use Insert instead of Add listView.Items.Add(li); 
+                    }
+                    
+                    else if (last_price == theBid)
+                    {
+                        lx.ForeColor = Color.Red;
+                        lx.Text = (listTimeSales[0]);
+                        lx.SubItems.Add(strShareSize);
+                        lx.SubItems.Add(strSaleTime);
+                        listViewTns.Items.Insert(0, lx);
+
+                        lbData.Items.Insert(0, strSaleTime);
+                    }
+                    
+                    else if (last_price > myMean && last_price < theAsk)
+                    {
+                        lx.ForeColor = Color.Lime;
+                        lx.Text = (listTimeSales[0]);
+                        lx.SubItems.Add(strShareSize);
+                        lx.SubItems.Add(strSaleTime);
+                        listViewTns.Items.Insert(0, lx);
+
+                        lbData.Items.Add(epoch);
+                    }
+                    else
+                    {
+                        lx.ForeColor = Color.DarkRed;
+                        lx.Text = (listTimeSales[0]);
+                        lx.SubItems.Add(strShareSize);
+                        lx.SubItems.Add(strSaleTime);
+                        listViewTns.Items.Insert(0, lx);
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+        }
 
 
 
@@ -112,7 +202,7 @@ namespace IBTradingPlatform
         private void getData()
         {
             ibClient.ClientSocket.cancelMktData(1);
-
+            listViewTns.Items.Clear();
             IBApi.Contract contract = new IBApi.Contract();
             List<IBApi.TagValue> mktDataOptions = new List<IBApi.TagValue>();
 
@@ -123,7 +213,7 @@ namespace IBTradingPlatform
             contract.Currency = "USD";          // May be changed
 
             ibClient.ClientSocket.reqMarketDataType(1);    //Delayed data = 3, live data = 1
-            ibClient.ClientSocket.reqMktData(1, contract, "", false, false, mktDataOptions);
+            ibClient.ClientSocket.reqMktData(1, contract, "233", false, false, mktDataOptions);
 
 
         }

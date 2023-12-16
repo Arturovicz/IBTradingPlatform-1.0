@@ -60,6 +60,7 @@
             this.btnBuy = new System.Windows.Forms.Button();
             this.chkOutside = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.listViewTns = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.numQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrice)).BeginInit();
             this.SuspendLayout();
@@ -384,11 +385,21 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // listViewTns
+            // 
+            this.listViewTns.HideSelection = false;
+            this.listViewTns.Location = new System.Drawing.Point(619, 24);
+            this.listViewTns.Name = "listViewTns";
+            this.listViewTns.Size = new System.Drawing.Size(169, 336);
+            this.listViewTns.TabIndex = 33;
+            this.listViewTns.UseCompatibleStateImageBehavior = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.listViewTns);
             this.Controls.Add(this.chkOutside);
             this.Controls.Add(this.btnBuy);
             this.Controls.Add(this.btnSell);
@@ -462,6 +473,7 @@
         private System.Windows.Forms.Button btnBuy;
         private System.Windows.Forms.CheckBox chkOutside;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ListView listViewTns;
     }
 }
 
