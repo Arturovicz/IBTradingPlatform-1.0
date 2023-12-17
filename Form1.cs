@@ -270,16 +270,57 @@ namespace IBTradingPlatform
 
         private void btnSell_Click(object sender, EventArgs e)
         {
-            string side = "Sell";
-            send_order(side);
+            string side = "SELL";
+
+            if (Form.ModifierKeys == Keys.Control)
+            {
+                send_bracket_order(side);
+            }
+            else
+            {
+                send_order(side);
+            }
         }
 
         private void btnBuy_Click(object sender, EventArgs e)
         {
-            string side = "Buy";
-            send_order(side);
+            string side = "BUY";
+
+            if (Form.ModifierKeys == Keys.Control)
+            {
+                send_bracket_order(side);
+            }
+            else
+            {
+                send_order(side);
+            }
         }
 
+        public void send_bracket_order(string side)
+        {
+            IBApi.Contract contract = new IBApi.Contract();
+            
+            contract.Symbol = cbSymbol.Text;   
+            contract.SecType = "STK";   // STK stands for "Stock"
+            contract.Exchange = cbMarket.Text;
+            contract.PrimaryExch = "ISLAND"; // Use either NYSE or ISLAND
+            contract.Currency = "USD";
+
+            string order_type = cbOrderType.Text; // order type LMT or STP from the combobox
+            string action = side; // side (BUY or SELL) 
+            double quantity = Convert.ToDouble(numQuantity.Value);
+            double lmtPrice = Convert.ToDouble(numPrice.Text);  
+            double takeProfit = Convert.ToDouble(tbTakeProfit.Text);  // take profit amount from text box on the form
+            double stopLoss = Convert.ToDouble(tbStopLoss.Text);  
+            
+            List<Order> bracket = BracketOrder(order_id++, action, quantity, lmtPrice, takeProfit, stopLoss, order_type);
+            foreach (Order o in bracket) 
+                ibClient.ClientSocket.placeOrder(o.OrderId, contract, o);
+
+            
+            order_id += 3; //increase the order id number by 3 so you don't use the same order id number twice and get an error
+
+        }
 
         public void send_order(string side)
         {
@@ -298,7 +339,7 @@ namespace IBTradingPlatform
             order.OrderId = order_id;
             order.Action = side;
             order.OrderType = cbOrderType.Text;
-            order.TotalQuantity = Convert.ToDouble(numQuantity.Value);
+            order.TotalQuantity = (decimal)Convert.ToDouble(numQuantity.Value);
             order.LmtPrice = Convert.ToDouble(numPrice.Value);
 
             if (cbOrderType.Text == "STP")
@@ -326,5 +367,48 @@ namespace IBTradingPlatform
             }
             timer1_counter--; 
         }
+
+        public static List<Order> BracketOrder(int parentOrderId, string action, double quantity, double limitPrice,
+            double takeProfitLimitPrice, double stopLossPrice, string order_type)
+        {
+            
+            Order parent = new Order();
+            parent.OrderId = parentOrderId;
+            parent.Action = action;                     // "BUY" or "SELL"
+            parent.OrderType = order_type;              // "LMT", "STP", or "STP LMT"
+            parent.TotalQuantity = (decimal)quantity;
+            parent.LmtPrice = limitPrice;
+            //The parent and children orders will need this attribute set to false to prevent accidental executions.
+            //The LAST CHILD will have it set to true
+            parent.Transmit = false;
+
+
+            Order takeProfit = new Order();
+            takeProfit.OrderId = parent.OrderId + 1;
+            takeProfit.Action = action.Equals("BUY") ? "SELL" : "BUY";
+            takeProfit.OrderType = "LMT";
+            takeProfit.TotalQuantity = (decimal)quantity;
+            takeProfit.LmtPrice = takeProfitLimitPrice;
+            takeProfit.ParentId = parentOrderId;
+            takeProfit.Transmit = false;
+
+            Order stopLoss = new Order();
+            stopLoss.OrderId = parent.OrderId + 2;
+            stopLoss.Action = action.Equals("BUY") ? "SELL" : "BUY";
+            stopLoss.OrderType = "STP"; //or "STP LMT"
+            
+            // add stopLoss.LmtPrice here if you are going to use a stop limit order
+            stopLoss.AuxPrice = stopLossPrice;
+            stopLoss.TotalQuantity = (decimal)quantity;
+            stopLoss.ParentId = parentOrderId;
+            //In this case, the low side order will be the last child being sent. Therefore, it needs to set this attribute to true to activate all its predecessors
+            stopLoss.Transmit = true;
+            List<Order> bracketOrder = new List<Order>();
+            bracketOrder.Add(parent);
+            bracketOrder.Add(takeProfit);
+            bracketOrder.Add(stopLoss);
+            return bracketOrder;
+        }
+
     }
 }

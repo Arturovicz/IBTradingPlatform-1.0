@@ -61,6 +61,10 @@
             this.chkOutside = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.listViewTns = new System.Windows.Forms.ListView();
+            this.tbStopLoss = new System.Windows.Forms.TextBox();
+            this.tbTakeProfit = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrice)).BeginInit();
             this.SuspendLayout();
@@ -394,11 +398,49 @@
             this.listViewTns.TabIndex = 33;
             this.listViewTns.UseCompatibleStateImageBehavior = false;
             // 
+            // tbStopLoss
+            // 
+            this.tbStopLoss.Location = new System.Drawing.Point(121, 407);
+            this.tbStopLoss.Name = "tbStopLoss";
+            this.tbStopLoss.Size = new System.Drawing.Size(100, 20);
+            this.tbStopLoss.TabIndex = 34;
+            this.tbStopLoss.Text = "0.00";
+            // 
+            // tbTakeProfit
+            // 
+            this.tbTakeProfit.Location = new System.Drawing.Point(12, 407);
+            this.tbTakeProfit.Name = "tbTakeProfit";
+            this.tbTakeProfit.Size = new System.Drawing.Size(100, 20);
+            this.tbTakeProfit.TabIndex = 35;
+            this.tbTakeProfit.Text = "0.00";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(12, 383);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(65, 13);
+            this.label12.TabIndex = 36;
+            this.label12.Text = "Profit Target";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(118, 383);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(54, 13);
+            this.label13.TabIndex = 37;
+            this.label13.Text = "Stop Loss";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.tbTakeProfit);
+            this.Controls.Add(this.tbStopLoss);
             this.Controls.Add(this.listViewTns);
             this.Controls.Add(this.chkOutside);
             this.Controls.Add(this.btnBuy);
@@ -474,6 +516,10 @@
         private System.Windows.Forms.CheckBox chkOutside;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ListView listViewTns;
+        private System.Windows.Forms.TextBox tbStopLoss;
+        private System.Windows.Forms.TextBox tbTakeProfit;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
     }
 }
 
