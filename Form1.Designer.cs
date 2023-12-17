@@ -65,8 +65,24 @@
             this.tbTakeProfit = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.shares = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.time = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Pos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Symbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Last = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnScan = new System.Windows.Forms.Button();
+            this.btnStopScan = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrice)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnConnect
@@ -391,12 +407,19 @@
             // 
             // listViewTns
             // 
+            this.listViewTns.BackColor = System.Drawing.SystemColors.MenuText;
+            this.listViewTns.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.price,
+            this.shares,
+            this.time});
+            this.listViewTns.ForeColor = System.Drawing.SystemColors.Menu;
             this.listViewTns.HideSelection = false;
-            this.listViewTns.Location = new System.Drawing.Point(619, 24);
+            this.listViewTns.Location = new System.Drawing.Point(6, 6);
             this.listViewTns.Name = "listViewTns";
-            this.listViewTns.Size = new System.Drawing.Size(169, 336);
+            this.listViewTns.Size = new System.Drawing.Size(330, 336);
             this.listViewTns.TabIndex = 33;
             this.listViewTns.UseCompatibleStateImageBehavior = false;
+            this.listViewTns.View = System.Windows.Forms.View.Details;
             // 
             // tbStopLoss
             // 
@@ -432,16 +455,107 @@
             this.label13.TabIndex = 37;
             this.label13.Text = "Stop Loss";
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(587, 24);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(350, 386);
+            this.tabControl1.TabIndex = 38;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.listViewTns);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(342, 360);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.btnStopScan);
+            this.tabPage2.Controls.Add(this.btnScan);
+            this.tabPage2.Controls.Add(this.dataGridView1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(342, 360);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // price
+            // 
+            this.price.Text = "Price";
+            // 
+            // shares
+            // 
+            this.shares.Text = "Shares";
+            // 
+            // time
+            // 
+            this.time.Text = "Time";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Pos,
+            this.Symbol,
+            this.Last});
+            this.dataGridView1.Location = new System.Drawing.Point(0, 7);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(342, 308);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // Pos
+            // 
+            this.Pos.HeaderText = "Pos";
+            this.Pos.Name = "Pos";
+            // 
+            // Symbol
+            // 
+            this.Symbol.HeaderText = "Symbol";
+            this.Symbol.Name = "Symbol";
+            // 
+            // Last
+            // 
+            this.Last.HeaderText = "Last";
+            this.Last.Name = "Last";
+            // 
+            // btnScan
+            // 
+            this.btnScan.Location = new System.Drawing.Point(6, 327);
+            this.btnScan.Name = "btnScan";
+            this.btnScan.Size = new System.Drawing.Size(75, 23);
+            this.btnScan.TabIndex = 1;
+            this.btnScan.Text = "Scan";
+            this.btnScan.UseVisualStyleBackColor = true;
+            // 
+            // btnStopScan
+            // 
+            this.btnStopScan.Location = new System.Drawing.Point(261, 327);
+            this.btnStopScan.Name = "btnStopScan";
+            this.btnStopScan.Size = new System.Drawing.Size(75, 23);
+            this.btnStopScan.TabIndex = 2;
+            this.btnStopScan.Text = "Stop Scan";
+            this.btnStopScan.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1032, 566);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.tbTakeProfit);
             this.Controls.Add(this.tbStopLoss);
-            this.Controls.Add(this.listViewTns);
             this.Controls.Add(this.chkOutside);
             this.Controls.Add(this.btnBuy);
             this.Controls.Add(this.btnSell);
@@ -477,6 +591,10 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numQuantity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrice)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -520,6 +638,18 @@
         private System.Windows.Forms.TextBox tbTakeProfit;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ColumnHeader price;
+        private System.Windows.Forms.ColumnHeader shares;
+        private System.Windows.Forms.ColumnHeader time;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Pos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Symbol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Last;
+        private System.Windows.Forms.Button btnStopScan;
+        private System.Windows.Forms.Button btnScan;
     }
 }
 
