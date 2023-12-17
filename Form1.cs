@@ -22,6 +22,7 @@ namespace IBTradingPlatform
         delegate void SetTextCallback(string text);
         delegate void SetTextCallbackTickPrice(string _tickPrice);
         delegate void SetTextCallbackTickString(string _tickString);
+        delegate void SetTextCallbackScanner(string strScanner);
 
         IBTradingPlatform.EWrapperImpl ibClient;
 
@@ -44,7 +45,13 @@ namespace IBTradingPlatform
             ibClient = new IBTradingPlatform.EWrapperImpl();
         }
 
-        private void Form1_Load(object sender, EventArgs e){}
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                dataGridView1.Rows.Add();
+            }
+        }
         
         private void lbData_SelectedIndexChanged(object sender, EventArgs e){}
 
@@ -296,6 +303,57 @@ namespace IBTradingPlatform
             }
         }
 
+        public void AddScannerItemScanner(string strScanner)
+        {
+            if (this.tbLast.InvokeRequired)
+            {
+                SetTextCallbackScanner d = new SetTextCallbackScanner(AddScannerItemScanner);
+                try
+                {
+                    this.Invoke(d, new object[] { strScanner });
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("this is from _tickPrice ", e);
+                }
+            }
+            else
+            {
+                string[] scanner = new string[] { strScanner };
+                scanner = strScanner.Split(',');
+                int position = Convert.ToInt32(scanner[1]);
+
+                if (position == 0)
+                {
+                    for (int i = 0; i < dataGridView1.Columns.Count; i++)
+                    {
+                        for (int j = 0; j < dataGridView1.Rows.Count; j++)
+                        {
+                            dataGridView1.Rows[j].Cells[i].Value = DBNull.Value;
+                        }
+                    }
+                }
+
+                dataGridView1.Rows[position].Cells[0].Value = position + 1;
+                dataGridView1.Rows[position].Cells[1].Value = scanner[2];
+                ibClient.ClientSocket.cancelMktData(position);
+
+                
+                IBApi.Contract contract = new IBApi.Contract();
+                List<IBApi.TagValue> mktDataOptiones = new List<IBApi.TagValue>();
+                
+                contract.Symbol = scanner[2];
+                contract.SecType = "STK";
+                contract.Exchange = "SMART";
+                contract.PrimaryExch = "ISLAND";
+                contract.Currency = "USD";
+
+                ibClient.ClientSocket.reqMarketDataType(1);
+                ibClient.ClientSocket.reqMktData(position, contract, "", false, false, mktDataOptiones);
+
+            }
+        }
+
         public void send_bracket_order(string side)
         {
             IBApi.Contract contract = new IBApi.Contract();
@@ -410,5 +468,33 @@ namespace IBTradingPlatform
             return bracketOrder;
         }
 
+        private void btnScan_Click(object sender, EventArgs e)
+        {
+            TagValue t1 = new TagValue("avgVolumeAbove", "10000000");
+            TagValue t2 = new TagValue("priceAbove", "2");
+            //TagValue t3 = new TagValue("priceBelow", "100");
+
+            ScannerSubscription scsScanner = new ScannerSubscription();
+            scsScanner.NumberOfRows = 10;               // max is 50
+            scsScanner.Instrument = "STK";              // other examples are: STK.US , STK.US.MAJOR , STK.MINOR , STK.NASDAQ , STK.NYSE , STK.AMEX
+            scsScanner.LocationCode = "STK.US.MAJOR";
+            scsScanner.ScanCode = "TOP_PERC_GAIN";
+            
+            // Only look for Corporate stocks (not ADRs or ETFs)
+            //scsScanner.StockTypeFilter = "CORP";
+            //scsScanner.AboveVolume = 500000;
+
+
+            List<TagValue> TagValues = new List<TagValue> { t1, t2 };
+
+            ibClient.ClientSocket.reqScannerSubscription(87, scsScanner, null, TagValues);
+
+            //ibClient.ClientSocket.reqScannerParameters(); will display all the scanner parameter in the console in xml format
+        }
+
+        private void btnStopScan_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

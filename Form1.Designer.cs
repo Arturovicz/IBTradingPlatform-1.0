@@ -423,7 +423,7 @@
             // 
             // tbStopLoss
             // 
-            this.tbStopLoss.Location = new System.Drawing.Point(121, 407);
+            this.tbStopLoss.Location = new System.Drawing.Point(267, 337);
             this.tbStopLoss.Name = "tbStopLoss";
             this.tbStopLoss.Size = new System.Drawing.Size(100, 20);
             this.tbStopLoss.TabIndex = 34;
@@ -431,7 +431,7 @@
             // 
             // tbTakeProfit
             // 
-            this.tbTakeProfit.Location = new System.Drawing.Point(12, 407);
+            this.tbTakeProfit.Location = new System.Drawing.Point(158, 337);
             this.tbTakeProfit.Name = "tbTakeProfit";
             this.tbTakeProfit.Size = new System.Drawing.Size(100, 20);
             this.tbTakeProfit.TabIndex = 35;
@@ -440,7 +440,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(12, 383);
+            this.label12.Location = new System.Drawing.Point(158, 313);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(65, 13);
             this.label12.TabIndex = 36;
@@ -449,7 +449,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(118, 383);
+            this.label13.Location = new System.Drawing.Point(264, 313);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(54, 13);
             this.label13.TabIndex = 37;
@@ -536,6 +536,7 @@
             this.btnScan.TabIndex = 1;
             this.btnScan.Text = "Scan";
             this.btnScan.UseVisualStyleBackColor = true;
+            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
             // 
             // btnStopScan
             // 
@@ -550,6 +551,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1032, 566);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label13);

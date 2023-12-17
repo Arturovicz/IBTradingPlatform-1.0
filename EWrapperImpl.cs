@@ -461,8 +461,12 @@ namespace IBTradingPlatform
         //! [scannerdata]
         public virtual void scannerData(int reqId, int rank, ContractDetails contractDetails, string distance, string benchmark, string projection, string legsStr)
         {
+            string strScanner = reqId + "," + rank + "," + contractDetails.Contract.Symbol + "," + distance + "," + benchmark;
+            myform.AddScannerItemScanner(strScanner);
+            
             Console.WriteLine("ScannerData. "+reqId+" - Rank: "+rank+", Symbol: "+contractDetails.Contract.Symbol+", SecType: "+contractDetails.Contract.SecType+", Currency: "+contractDetails.Contract.Currency
                 +", Distance: "+distance+", Benchmark: "+benchmark+", Projection: "+projection+", Legs String: "+legsStr);
+
         }
         //! [scannerdata]
 
