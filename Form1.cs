@@ -51,6 +51,12 @@ namespace IBTradingPlatform
             {
                 dataGridView1.Rows.Add();
             }
+
+            for (int i = 0; i < 10; i++)
+            {
+                dataGridView2.Rows.Add();
+            }
+            dataGridView2.Columns[3].DefaultCellStyle.Format = "#.00\\%";
         }
         
         private void lbData_SelectedIndexChanged(object sender, EventArgs e){}
