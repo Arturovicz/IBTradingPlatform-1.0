@@ -248,8 +248,25 @@ namespace IBTradingPlatform
             }
             else
             {
+
                 string[] tickerPrice = new string[] { _tickPrice };
                 tickerPrice = _tickPrice.Split(',');
+
+                if (Convert.ToInt32(tickerPrice[0]) == 1)
+                {
+                    if (Convert.ToInt32(tickerPrice[1]) == 4)// Delayed Last quote 68, realtime use tickerPrice == 4
+                    {
+                        this.tbLast.Text = tickerPrice[2];
+                    }
+                    else if (Convert.ToInt32(tickerPrice[1]) == 2)  // Delayed Ask quote 67, realtime use tickerPrice == 2
+                    {
+                        this.tbAsk.Text = tickerPrice[2];
+                    }
+                    else if (Convert.ToInt32(tickerPrice[1]) == 1)  // Delayed Bid quote 66, realtime tickerPrice == 1
+                    {
+                        this.tbBid.Text = tickerPrice[2];
+                    }
+                }
 
                 switch (Convert.ToInt32(tickerPrice[0]))
                 {
@@ -564,7 +581,7 @@ namespace IBTradingPlatform
                             dataGridView2[4, 9].Value = tick_price.ToString();
                         }
                         break;
-                }   
+                }    
 
             }
         }
@@ -931,11 +948,79 @@ namespace IBTradingPlatform
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex == -1) return; //check if row index is not selected (The index must not be negative)
-            if (dataGridView2.CurrentCell.ColumnIndex.Equals(0)) // indicates which column you get the info from 0 = first column
+            if (e.RowIndex == -1) return; 
+            if (dataGridView2.CurrentCell.ColumnIndex.Equals(0)) 
                 if (dataGridView2.CurrentCell != null && dataGridView2.CurrentCell.Value != null)
                     cbSymbol.Text = Convert.ToString(dataGridView2.CurrentCell.Value);
-            getData(); // requests the data for the symbol in the order form
+            getData(); 
+        }
+
+        private void dataGridView2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int loc = dataGridView2.Rows[e.RowIndex].Index;
+
+            dataGridView2[1, loc].Value = null;
+            dataGridView2[2, loc].Value = null;
+            dataGridView2[3, loc].Value = null;
+            dataGridView2[4, loc].Value = null;
+
+            if (dataGridView2.CurrentCell != null && dataGridView2.CurrentCell.Value != null)
+            {
+                int rowIndex = dataGridView2.Rows[e.RowIndex].Index + 10;
+
+                ibClient.ClientSocket.cancelMktData(rowIndex);
+
+                string symbol = dataGridView2.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+
+                
+                IBApi.Contract contract = new IBApi.Contract();
+                
+                List<IBApi.TagValue> mktDataOptiones = new List<IBApi.TagValue>();
+                
+                contract.Symbol = symbol;
+                contract.SecType = "STK";
+                contract.Exchange = "SMART"; // Use "SMART" as the general exchange
+                contract.PrimaryExch = "ISLAND"; // Use either NYSE or ISLAND
+                contract.Currency = "USD";
+
+                ibClient.ClientSocket.reqMarketDataType(1);
+
+                ibClient.ClientSocket.reqMktData(rowIndex, contract, "", false, false, mktDataOptiones);
+            }
+        }
+
+        private void dataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridView2.Rows[e.RowIndex].Cells[3].Value != null)
+            {
+                try
+                {
+                    double change_percent = Convert.ToDouble(dataGridView2.Rows[e.RowIndex].Cells[3].Value.ToString().Trim());
+                    change_percent = change_percent * 100;
+                    string final_percent = change_percent.ToString("#.00\\%");
+
+                    if (change_percent > 0)
+                    {
+                        dataGridView2.Rows[e.RowIndex].Cells[3].Style.ForeColor = System.Drawing.Color.Black;
+                    }
+                    else if (change_percent < 0)
+                    {
+                        dataGridView2.Rows[e.RowIndex].Cells[3].Style.ForeColor = System.Drawing.Color.Red;
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        private void tabControl1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsLower(e.KeyChar))
+            {
+                e.KeyChar = char.ToUpper(e.KeyChar);
+            }
         }
     }
 }
