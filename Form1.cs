@@ -244,14 +244,101 @@ namespace IBTradingPlatform
                 string[] tickerPrice = new string[] { _tickPrice };
                 tickerPrice = _tickPrice.Split(',');
 
-                if (Convert.ToInt32(tickerPrice[0]) == 1)
+                switch (Convert.ToInt32(tickerPrice[0]))
                 {
-                    if (Convert.ToInt32(tickerPrice[1]) == 4){this.tbLast.Text = tickerPrice[2];}        // Delayed Last Quote 68
-                    else if (Convert.ToInt32(tickerPrice[1]) == 2) { this.tbAsk.Text = tickerPrice[2]; } // Delayed Ask Quote 67
-                    else if (Convert.ToInt32(tickerPrice[1]) == 1) { this.tbAsk.Text = tickerPrice[2]; } // Delayed Ask Quote 66 
+                    case 0:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView1[2, 0].Value = tick_price.ToString();
+                            break;
+                        }
+                        break;
+                    case 1:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView1[2, 1].Value = tick_price.ToString();
+                            break;
+                        }
 
+                        break;
+                    case 2:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView1[2, 2].Value = tick_price.ToString();
+                            break;
+                        }
+                        break;
+                    case 3:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView1[2, 3].Value = tick_price.ToString();
+                            break;
+                        }
+                        break;
+                    case 4:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView1[2, 4].Value = tick_price.ToString();
+                            break;
+                        }
+                        break;
+                    case 5:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView1[2, 5].Value = tick_price.ToString();
+                            break;
+                        }
+                        break;
+                    case 6:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView1[2, 6].Value = tick_price.ToString();
+                            break;
+                        }
+                        break;
+                    case 7:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView1[2, 7].Value = tick_price.ToString();
+                            break; ;
+                        }
+                        break;
+                    case 8:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView1[2, 8].Value = tick_price.ToString();
+                            break;
+                        }
+                        break;
+                    case 9:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView1[2, 9].Value = tick_price.ToString();
+                            break;
+                        }
+                        break;
                 }
-                        
+
             }
         }
 
@@ -494,7 +581,20 @@ namespace IBTradingPlatform
 
         private void btnStopScan_Click(object sender, EventArgs e)
         {
+            ibClient.ClientSocket.cancelScannerSubscription(87);
+            for (int i = 0; i < 9; i++)
+            {
+                ibClient.ClientSocket.cancelMktData(i);
+            }
+        }
 
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)         // If does not work, try with dataGridView1_CellContentClick 
+        {
+            if (e.RowIndex == -1) return;
+            if (dataGridView1.CurrentCell.ColumnIndex.Equals(1))
+                if (dataGridView1.CurrentCell != null && dataGridView1.CurrentCell.Value != null)
+                    cbSymbol.Text = Convert.ToString(dataGridView1.CurrentCell.Value);
+            getData();
         }
     }
 }

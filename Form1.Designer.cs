@@ -61,6 +61,9 @@
             this.chkOutside = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.listViewTns = new System.Windows.Forms.ListView();
+            this.price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.shares = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.time = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tbStopLoss = new System.Windows.Forms.TextBox();
             this.tbTakeProfit = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -68,15 +71,12 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.price = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.shares = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.time = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnStopScan = new System.Windows.Forms.Button();
+            this.btnScan = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Pos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Symbol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Last = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnScan = new System.Windows.Forms.Button();
-            this.btnStopScan = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPrice)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -421,6 +421,18 @@
             this.listViewTns.UseCompatibleStateImageBehavior = false;
             this.listViewTns.View = System.Windows.Forms.View.Details;
             // 
+            // price
+            // 
+            this.price.Text = "Price";
+            // 
+            // shares
+            // 
+            this.shares.Text = "Shares";
+            // 
+            // time
+            // 
+            this.time.Text = "Time";
+            // 
             // tbStopLoss
             // 
             this.tbStopLoss.Location = new System.Drawing.Point(267, 337);
@@ -473,7 +485,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(342, 360);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Time & Sales";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
@@ -486,20 +498,27 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(342, 360);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Scan";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // price
+            // btnStopScan
             // 
-            this.price.Text = "Price";
+            this.btnStopScan.Location = new System.Drawing.Point(261, 327);
+            this.btnStopScan.Name = "btnStopScan";
+            this.btnStopScan.Size = new System.Drawing.Size(75, 23);
+            this.btnStopScan.TabIndex = 2;
+            this.btnStopScan.Text = "Stop Scan";
+            this.btnStopScan.UseVisualStyleBackColor = true;
             // 
-            // shares
+            // btnScan
             // 
-            this.shares.Text = "Shares";
-            // 
-            // time
-            // 
-            this.time.Text = "Time";
+            this.btnScan.Location = new System.Drawing.Point(6, 327);
+            this.btnScan.Name = "btnScan";
+            this.btnScan.Size = new System.Drawing.Size(75, 23);
+            this.btnScan.TabIndex = 1;
+            this.btnScan.Text = "Scan";
+            this.btnScan.UseVisualStyleBackColor = true;
+            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
             // 
             // dataGridView1
             // 
@@ -512,6 +531,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(342, 308);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // Pos
             // 
@@ -527,25 +547,6 @@
             // 
             this.Last.HeaderText = "Last";
             this.Last.Name = "Last";
-            // 
-            // btnScan
-            // 
-            this.btnScan.Location = new System.Drawing.Point(6, 327);
-            this.btnScan.Name = "btnScan";
-            this.btnScan.Size = new System.Drawing.Size(75, 23);
-            this.btnScan.TabIndex = 1;
-            this.btnScan.Text = "Scan";
-            this.btnScan.UseVisualStyleBackColor = true;
-            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
-            // 
-            // btnStopScan
-            // 
-            this.btnStopScan.Location = new System.Drawing.Point(261, 327);
-            this.btnStopScan.Name = "btnStopScan";
-            this.btnStopScan.Size = new System.Drawing.Size(75, 23);
-            this.btnStopScan.TabIndex = 2;
-            this.btnStopScan.Text = "Stop Scan";
-            this.btnStopScan.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
