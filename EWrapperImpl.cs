@@ -102,6 +102,7 @@ namespace IBTradingPlatform
             string strData = "Tick Size: Ticker Id:" + tickerId + ", Field: " + field + ", Size: " + Util.DecimalMaxString(size);
             Console.WriteLine(strData);
             myform.AddListBoxItem(strData);
+            myform.AddTickSizeItem(tickerId, field, (int)size);
         }
         //! [ticksize]
         

@@ -23,6 +23,7 @@ namespace IBTradingPlatform
         delegate void SetTextCallbackTickPrice(string _tickPrice);
         delegate void SetTextCallbackTickString(string _tickString);
         delegate void SetTextCallbackScanner(string strScanner);
+        delegate void SetTextCallbackTickSize(int tickerId, int field, int size);
 
         IBTradingPlatform.EWrapperImpl ibClient;
 
@@ -343,8 +344,333 @@ namespace IBTradingPlatform
                             break;
                         }
                         break;
-                }
 
+                    case 10:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4) // last price = 4
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView2[1, 0].Value = tick_price.ToString();
+
+                            if (dataGridView2[4, 0].Value != null)
+                            {
+                                double previous_close = Convert.ToDouble(dataGridView2[4, 0].Value);
+                                double change = Math.Round(((tick_price - previous_close) / previous_close) * 100, 2);
+                                dataGridView2[3, 0].Value = change;
+                            }
+                            break;
+                        }
+                        if (Convert.ToInt32(tickerPrice[1]) == 9) // Close previous day
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            dataGridView2[4, 0].Value = tick_price.ToString();
+                        }
+                        break;
+
+                    case 11:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView2[1, 1].Value = tick_price.ToString();
+
+                            if (dataGridView2[4, 1].Value != null)
+                            {
+                                double previous_close = Convert.ToDouble(dataGridView2[4, 1].Value);
+                                double change = Math.Round(((tick_price - previous_close) / previous_close) * 100, 2);
+                                dataGridView2[3, 1].Value = change;
+                            }
+                            break;
+                        }
+                        if (Convert.ToInt32(tickerPrice[1]) == 9)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            dataGridView2[4, 1].Value = tick_price.ToString();
+                        }
+                        break;
+
+                    case 12:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView2[1, 2].Value = tick_price.ToString();
+
+                            if (dataGridView2[4, 2].Value != null)
+                            {
+                                double previous_close = Convert.ToDouble(dataGridView2[4, 2].Value);
+                                double change = Math.Round(((tick_price - previous_close) / previous_close) * 100, 2);
+                                dataGridView2[3, 2].Value = change;
+                            }
+                            break;
+                        }
+                        if (Convert.ToInt32(tickerPrice[1]) == 9)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            dataGridView2[4, 2].Value = tick_price.ToString();
+                        }
+                        break;
+
+                    case 13:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView2[1, 3].Value = tick_price.ToString();
+
+                            if (dataGridView2[4, 3].Value != null)
+                            {
+                                double previous_close = Convert.ToDouble(dataGridView2[4, 3].Value);
+                                double change = Math.Round(((tick_price - previous_close) / previous_close) * 100, 2);
+                                dataGridView2[3, 3].Value = change;
+                            }
+                            break;
+                        }
+                        if (Convert.ToInt32(tickerPrice[1]) == 9)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            dataGridView2[4, 3].Value = tick_price.ToString();
+                        }
+                        break;
+
+                    case 14:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView2[1, 4].Value = tick_price.ToString();
+
+                            if (dataGridView2[4, 4].Value != null)
+                            {
+                                double previous_close = Convert.ToDouble(dataGridView2[4, 4].Value);
+                                double change = Math.Round(((tick_price - previous_close) / previous_close) * 100, 2);
+                                dataGridView2[3, 4].Value = change;
+                            }
+                            break;
+                        }
+                        if (Convert.ToInt32(tickerPrice[1]) == 9)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            dataGridView2[4, 4].Value = tick_price.ToString();
+                        }
+                        break;
+
+                    case 15:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView2[1, 5].Value = tick_price.ToString();
+
+                            if (dataGridView2[4, 5].Value != null)
+                            {
+                                double previous_close = Convert.ToDouble(dataGridView2[4, 5].Value);
+                                double change = Math.Round(((tick_price - previous_close) / previous_close) * 100, 2);
+                                dataGridView2[3, 5].Value = change;
+                            }
+                            break;
+                        }
+                        if (Convert.ToInt32(tickerPrice[1]) == 9)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            dataGridView2[4, 5].Value = tick_price.ToString();
+                        }
+                        break;
+
+                    case 16:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView2[1, 6].Value = tick_price.ToString();
+
+                            if (dataGridView2[4, 6].Value != null)
+                            {
+                                double previous_close = Convert.ToDouble(dataGridView2[4, 6].Value);
+                                double change = Math.Round(((tick_price - previous_close) / previous_close) * 100, 2);
+                                dataGridView2[3, 6].Value = change;
+                            }
+                            break;
+                        }
+                        if (Convert.ToInt32(tickerPrice[1]) == 9)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            dataGridView2[4, 6].Value = tick_price.ToString();
+                        }
+                        break;
+
+                    case 17:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView2[1, 7].Value = tick_price.ToString();
+
+                            if (dataGridView2[4, 7].Value != null)
+                            {
+                                double previous_close = Convert.ToDouble(dataGridView2[4, 7].Value);
+                                double change = Math.Round(((tick_price - previous_close) / previous_close) * 100, 2);
+                                dataGridView2[3, 7].Value = change;
+                            }
+                            break;
+                        }
+                        if (Convert.ToInt32(tickerPrice[1]) == 9)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            dataGridView2[4, 7].Value = tick_price.ToString();
+                        }
+                        break;
+
+                    case 18:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView2[1, 8].Value = tick_price.ToString();
+
+                            if (dataGridView2[4, 8].Value != null)
+                            {
+                                double previous_close = Convert.ToDouble(dataGridView2[4, 8].Value);
+                                double change = Math.Round(((tick_price - previous_close) / previous_close) * 100, 2);
+                                dataGridView2[3, 8].Value = change;
+                            }
+                            break;
+                        }
+                        if (Convert.ToInt32(tickerPrice[1]) == 9)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            dataGridView2[4, 8].Value = tick_price.ToString();
+                        }
+                        break;
+
+                    case 19:
+                        if (Convert.ToInt32(tickerPrice[1]) == 4)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            tick_price = Math.Round(tick_price, 2);
+                            dataGridView2[1, 9].Value = tick_price.ToString();
+
+                            if (dataGridView2[4, 9].Value != null)
+                            {
+                                double previous_close = Convert.ToDouble(dataGridView2[4, 9].Value);
+                                double change = Math.Round(((tick_price - previous_close) / previous_close) * 100, 2);
+                                dataGridView2[3, 9].Value = change;
+                            }
+                            break;
+                        }
+                        if (Convert.ToInt32(tickerPrice[1]) == 9)
+                        {
+                            double tick_price = Convert.ToDouble(tickerPrice[2]);
+                            dataGridView2[4, 9].Value = tick_price.ToString();
+                        }
+                        break;
+                }   
+
+            }
+        }
+
+        public void AddTickSizeItem(int tickerId,
+                                    int field,
+                                    int size)
+        {
+            if (this.tbLast.InvokeRequired)
+            {
+                SetTextCallbackTickSize d = new SetTextCallbackTickSize(AddTickSizeItem);
+                try
+                {
+                    this.Invoke(d, new object[] { tickerId, field, size });
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("this is from _tickPrice ", e);
+                }
+            }
+            else
+            {
+
+                switch (tickerId)
+                {
+                    case 10:
+                        if (field == 8)
+                        {
+                            int mySize = size * 100;
+                            dataGridView2[2, 0].Value = mySize.ToString();
+                            break;
+                        }
+                        break;
+                    case 11:
+                        if (field == 8)
+                        {
+                            int mySize = size * 100;
+                            dataGridView2[2, 1].Value = mySize.ToString();
+                            break;
+                        }
+                        break;
+                    case 12:
+                        if (field == 8)
+                        {
+                            int mySize = size * 100;
+                            dataGridView2[2, 2].Value = mySize.ToString();
+                            break;
+                        }
+                        break;
+                    case 13:
+                        if (field == 8)
+                        {
+                            int mySize = size * 100;
+                            dataGridView2[2, 3].Value = mySize.ToString();
+                            break;
+                        }
+                        break;
+                    case 14:
+                        if (field == 8)
+                        {
+                            int mySize = size * 100;
+                            dataGridView2[2, 4].Value = mySize.ToString();
+                            break;
+                        }
+                        break;
+                    case 15:
+                        if (field == 8)
+                        {
+                            int mySize = size * 100;
+                            dataGridView2[2, 5].Value = mySize.ToString();
+                            break;
+                        }
+                        break;
+                    case 16:
+                        if (field == 8)
+                        {
+                            int mySize = size * 100;
+                            dataGridView2[2, 6].Value = mySize.ToString();
+                            break;
+                        }
+                        break;
+                    case 17:
+                        if (field == 8)
+                        {
+                            int mySize = size * 100;
+                            dataGridView2[2, 7].Value = mySize.ToString();
+                            break;
+                        }
+                        break;
+                    case 18:
+                        if (field == 8)
+                        {
+                            int mySize = size * 100;
+                            dataGridView2[2, 8].Value = mySize.ToString();
+                            break;
+                        }
+                        break;
+                    case 19:
+                        if (field == 8)
+                        {
+                            int mySize = size * 100;
+                            dataGridView2[2, 9].Value = mySize.ToString();
+                            break;
+                        }
+                        break;
+                }
             }
         }
 
@@ -601,6 +927,15 @@ namespace IBTradingPlatform
                 if (dataGridView1.CurrentCell != null && dataGridView1.CurrentCell.Value != null)
                     cbSymbol.Text = Convert.ToString(dataGridView1.CurrentCell.Value);
             getData();
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1) return; //check if row index is not selected (The index must not be negative)
+            if (dataGridView2.CurrentCell.ColumnIndex.Equals(0)) // indicates which column you get the info from 0 = first column
+                if (dataGridView2.CurrentCell != null && dataGridView2.CurrentCell.Value != null)
+                    cbSymbol.Text = Convert.ToString(dataGridView2.CurrentCell.Value);
+            getData(); // requests the data for the symbol in the order form
         }
     }
 }
